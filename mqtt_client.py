@@ -1,5 +1,4 @@
 import paho.mqtt.client as mqtt
-import time 
 
 class MqttClient:
     def __init__(self, host, port, topic):
@@ -7,7 +6,6 @@ class MqttClient:
         self.host = host
         self.port = port
         self.topic = topic
-        self.connected = False
 
     def connect(self):
         self.client.on_connect = self.on_connect
@@ -17,7 +15,6 @@ class MqttClient:
 
     def on_connect(self, client, userdata, flags, rc):
         if rc == 0:
-            self.connected = True
             print("Connected to MQTT broker")
         else:
             print("Connection failed")

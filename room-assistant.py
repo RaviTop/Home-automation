@@ -1,5 +1,5 @@
 import os
-import time
+from time import time,sleep
 from dotenv import load_dotenv
 from mqtt_client import MqttClient
 from dht22_sensor import DHT22Sensor
@@ -25,12 +25,13 @@ if __name__ == "__main__":
             humidity, temperature = sensor.read()
             if humidity is not None and temperature is not None:
                 # Publish data to MQTT broker
-                mqtt_client.publish(f"Temperature: {temperature}, Humidity: {humidity}")
+                timestamp =int(time() * 1000)
+                mqtt_client.publish(f"timestamp: {timestamp} ,Temperature: {temperature}, Humidity: {humidity} ")
                 print("Published data to MQTT broker")
             else:
                 print("Failed to retrieve data from sensor")
 
-            time.sleep(10)  # Wait for 10 seconds before reading again
+            sleep(10)  # Wait for 10 seconds before reading again
 
     except KeyboardInterrupt:
         print("Exiting...")
